@@ -3,28 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using RoutingDemo.Models;
 
 namespace RoutingDemo.Controllers
 {
     public class HomeController : Controller
     {
+        [Route("foobar")]
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        [Route("search/{query?}")]
+        public ActionResult Search(string query)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            return View(new SearchViewModel { SearchQuery = query });
         }
 
-        public ActionResult Contact()
+        [Route("people/{personId}/view")]
+        public void ViewPerson(int personId)
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            Response.Write($"<h1>Looking at person {personId}</h1>");
         }
     }
 }
